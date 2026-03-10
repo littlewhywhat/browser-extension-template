@@ -33,10 +33,12 @@ const toggleOverlay = () => {
 observeAndInject({
   selector: 'form[role="search"]',
   mount: (form) => {
+    const wrapper = form.closest("div");
+    if (!wrapper) return null;
     const container = document.createElement("div");
     container.style.cssText =
       "display:flex;justify-content:center;padding:8px 0;";
-    form.parentElement?.insertBefore(container, form.nextSibling);
+    wrapper.parentElement?.insertBefore(container, wrapper.nextSibling);
     const { dispose } = mountInline(
       container,
       h(WeatherButton, { onClick: toggleOverlay }),
