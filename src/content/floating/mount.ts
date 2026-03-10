@@ -20,11 +20,11 @@ const POSITION_STYLES: Record<FloatingOptions["position"], string> = {
   center: "top:50%;left:50%;transform:translate(-50%,-50%);",
 };
 
-function mountFloating(
+const mountFloating = (
   // biome-ignore lint/suspicious/noExplicitAny: VNode type parameter is contravariant
   vnode: VNode<any>,
   options: FloatingOptions,
-): { dispose: () => void } {
+): { dispose: () => void } => {
   const host = document.createElement("div");
   host.setAttribute("data-ext-floating", "1");
   host.style.cssText = `position:fixed;z-index:2147483647;${POSITION_STYLES[options.position]}`;
@@ -49,7 +49,7 @@ function mountFloating(
       host.remove();
     },
   };
-}
+};
 
 export { mountFloating };
 export type { FloatingOptions };

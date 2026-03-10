@@ -5,7 +5,7 @@ type ObserveConfig = {
   trigger?: "mutation" | "visible";
 };
 
-function observeAndInject(config: ObserveConfig): { dispose: () => void } {
+const observeAndInject = (config: ObserveConfig): { dispose: () => void } => {
   const { selector, mount, markerAttr, trigger = "mutation" } = config;
   const disposers = new Map<Element, () => void>();
   const useVisibility = trigger === "visible";
@@ -59,7 +59,7 @@ function observeAndInject(config: ObserveConfig): { dispose: () => void } {
       disposers.clear();
     },
   };
-}
+};
 
 export { observeAndInject };
 export type { ObserveConfig };

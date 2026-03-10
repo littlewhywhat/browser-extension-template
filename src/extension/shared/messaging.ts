@@ -1,13 +1,12 @@
 import type { BackgroundMessages, ContentMessages } from "../../types/messages";
 
-function sendMessage<K extends keyof BackgroundMessages>(
+const sendMessage = <K extends keyof BackgroundMessages>(
   type: K,
   payload: BackgroundMessages[K]["request"],
-): Promise<BackgroundMessages[K]["response"]> {
-  return chrome.runtime.sendMessage({ type, payload });
-}
+): Promise<BackgroundMessages[K]["response"]> =>
+  chrome.runtime.sendMessage({ type, payload });
 
-function onBackgroundMessage<K extends keyof BackgroundMessages>(
+const onBackgroundMessage = <K extends keyof BackgroundMessages>(
   type: K,
   handler: (
     payload: BackgroundMessages[K]["request"],
@@ -15,7 +14,7 @@ function onBackgroundMessage<K extends keyof BackgroundMessages>(
   ) =>
     | Promise<BackgroundMessages[K]["response"]>
     | BackgroundMessages[K]["response"],
-): () => void {
+): (() => void) => {
   const listener = (
     message: { type: string; payload: unknown },
     sender: chrome.runtime.MessageSender,
@@ -35,14 +34,13 @@ function onBackgroundMessage<K extends keyof BackgroundMessages>(
   };
   chrome.runtime.onMessage.addListener(listener);
   return () => chrome.runtime.onMessage.removeListener(listener);
-}
+};
 
-function sendToTab<K extends keyof ContentMessages>(
+const sendToTab = <K extends keyof ContentMessages>(
   tabId: number,
   type: K,
   payload: ContentMessages[K]["request"],
-): Promise<ContentMessages[K]["response"]> {
-  return chrome.tabs.sendMessage(tabId, { type, payload });
-}
+): Promise<ContentMessages[K]["response"]> =>
+  chrome.tabs.sendMessage(tabId, { type, payload });
 
 export { sendMessage, onBackgroundMessage, sendToTab };

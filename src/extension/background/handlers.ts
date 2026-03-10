@@ -15,7 +15,7 @@ const getWeather = (city: string) =>
     ),
   );
 
-function registerHandlers() {
+const registerHandlers = () => {
   onBackgroundMessage("get-weather", async (payload) => {
     return pipe(
       getWeather(payload.city),
@@ -31,6 +31,6 @@ function registerHandlers() {
     const enabled = await storage.get("enabled");
     return { ok: true as const, data: { enabled } };
   });
-}
+};
 
 export { registerHandlers };

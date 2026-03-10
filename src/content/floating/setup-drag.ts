@@ -1,4 +1,4 @@
-function setupDrag(host: HTMLElement, shadow: ShadowRoot) {
+const setupDrag = (host: HTMLElement, shadow: ShadowRoot) => {
   let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
@@ -26,6 +26,6 @@ function setupDrag(host: HTMLElement, shadow: ShadowRoot) {
   document.addEventListener("mouseup", () => {
     isDragging = false;
   });
-}
+};
 
 export { setupDrag };

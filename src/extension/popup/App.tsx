@@ -2,7 +2,7 @@ import { Box, Card, Flex, Heading, Switch, Text } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { sendMessage } from "../shared/messaging";
 
-function App() {
+const App = () => {
   const [enabled, setEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +38,6 @@ function App() {
       </Flex>
     </Box>
   );
-}
+};
 
 export { App };
