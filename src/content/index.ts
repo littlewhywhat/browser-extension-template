@@ -1,3 +1,4 @@
+import "./content.css";
 import { h } from "preact";
 import { WeatherOverlay } from "./floating/components/WeatherOverlay";
 import { mountFloating } from "./floating/mount";
