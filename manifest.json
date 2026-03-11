@@ -1,9 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Browser Extension Template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Template Chrome extension with weather example",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage"
+  ],
   "action": {
     "default_popup": "src/extension/popup/index.html",
     "default_title": "Extension Template"
@@ -13,8 +15,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.google.com/*"],
-      "js": ["src/content/index.ts"],
+      "matches": [
+        "https://www.google.com/*"
+      ],
+      "js": [
+        "src/content/index.ts"
+      ],
       "run_at": "document_idle"
     }
   ]
