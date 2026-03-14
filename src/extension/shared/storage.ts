@@ -1,33 +1,9 @@
-type StorageSchema = {
-  enabled: boolean;
-  lastCity: string;
-};
+import { createStorage } from "../../common/extension/storage";
 
-const defaults: StorageSchema = {
+const defaults = {
   enabled: true,
   lastCity: "San Francisco",
-};
+} as const;
 
-async function get<K extends keyof StorageSchema>(
-  key: K,
-): Promise<StorageSchema[K]> {
-  const result = await chrome.storage.local.get(key);
-  return (result[key] as StorageSchema[K]) ?? defaults[key];
-}
-
-async function set<K extends keyof StorageSchema>(
-  key: K,
-  value: StorageSchema[K],
-): Promise<void> {
-  await chrome.storage.local.set({ [key]: value });
-}
-
-async function getAll(): Promise<StorageSchema> {
-  const result = await chrome.storage.local.get(Object.keys(defaults));
-  return { ...defaults, ...result } as StorageSchema;
-}
-
-const storage = { get, set, getAll };
-
-export { storage };
-export type { StorageSchema };
+export const storage = createStorage(defaults);
+export type StorageSchema = typeof defaults;
