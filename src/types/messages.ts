@@ -1,10 +1,10 @@
+import type { MessageResponse } from "../common/types";
+
 type WeatherData = {
   city: string;
   temp: number;
   condition: string;
 };
-
-type MessageResponse<T> = { ok: true; data: T } | { ok: false; error: string };
 
 type BackgroundMessages = {
   "get-weather": {
@@ -26,7 +26,6 @@ type ContentMessages = {
 
 export type {
   WeatherData,
-  MessageResponse,
   BackgroundMessages,
   ContentMessages,
 };
