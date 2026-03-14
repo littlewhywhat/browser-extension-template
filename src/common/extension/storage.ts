@@ -1,15 +1,29 @@
-const createStorage = <S extends Record<string, unknown>>(defaults: S) => {
+type StorageArea = "local" | "sync" | "session";
+
+type CreateStorageOptions = {
+  area?: StorageArea;
+};
+
+const createStorage = <S extends Record<string, unknown>>(
+  defaults: S,
+  options?: CreateStorageOptions,
+) => {
+  const area = options?.area ?? "local";
+  const storage = chrome.storage[area];
+
   const get = async <K extends keyof S>(key: K): Promise<S[K]> => {
-    const result = await chrome.storage.local.get(key);
-    return (result[key] as S[K]) ?? defaults[key];
+    const keyStr = key as string;
+    const result = await storage.get(keyStr);
+    const value = result[keyStr];
+    return (value as S[K]) ?? defaults[key];
   };
 
   const set = async <K extends keyof S>(key: K, value: S[K]): Promise<void> => {
-    await chrome.storage.local.set({ [key]: value });
+    await storage.set({ [key as string]: value });
   };
 
   const getAll = async (): Promise<S> => {
-    const result = await chrome.storage.local.get(Object.keys(defaults));
+    const result = await storage.get(null);
     return { ...defaults, ...result } as S;
   };
 
@@ -17,3 +31,4 @@ const createStorage = <S extends Record<string, unknown>>(defaults: S) => {
 };
 
 export { createStorage };
+export type { CreateStorageOptions, StorageArea };
