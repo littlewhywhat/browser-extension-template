@@ -24,8 +24,4 @@ type ContentMessages = {
   };
 };
 
-export type {
-  WeatherData,
-  BackgroundMessages,
-  ContentMessages,
-};
+export type { WeatherData, BackgroundMessages, ContentMessages };
